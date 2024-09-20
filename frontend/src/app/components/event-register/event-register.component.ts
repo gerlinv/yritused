@@ -8,8 +8,7 @@ import { ModalService } from '../../common/components/services/modal.service';
 
 @Component({
   selector: 'app-event-register',
-  templateUrl: './event-register.component.html',
-  styleUrl: './event-register.component.css'
+  templateUrl: './event-register.component.html'
 })
 export class EventRegisterComponent {
   event?: Event;

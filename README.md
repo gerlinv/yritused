@@ -3,28 +3,26 @@
 Rakenduse loomisel on kasutatud 
 * Backendis:
     * Java (ver 17, Spring Boot)
-    * H2 andmebaasi
+    * H2 andmebaas
 * Frontendis: 
-    * Angular (ver 18.2.4)
+    * Angular (ver 18)
     * Bootstrap
 
 ## Eeldused
-Java JDK: Veenduge, et teie süsteemis on installitud Java Development Kit (JDK) versioon 11 (või sellest kõrgem).
-Frontendi poole peal on kasutusel Angular ning seetõttu veenduge, et Node.js ja Angular CLI on installitud.
-Veenduge, et pordid (8080 ja 4200) ei ole hõivatud teiste rakenduste poolt.
 
-Rakendus on arendatud Windowsi keskkonnas, Linux/macOS võivad osutada oma eripärasi. 
+* Java JDK: Kontrollige, et teie süsteemis on installitud Java Development Kit (JDK).
+* Node.js ja Angular CLI: Frontendi käivitamiseks on vajalikud Node.js ja Angular CLI.
+* Portide saadavus: Veenduge, et pordid 8080 (backend) ja 4200 (frontend) ei oleks hõivatud teiste rakenduste poolt.
+* Platvormi eripärad: Rakendus on arendatud Windowsi keskkonnas. Linuxi ja macOS-i kasutajad võivad kohtuda mõningate eripäradega. 
 
 ## Sammud rakenduse paigaldamiseks
 
 ### Failide kopeerimine:
 
-Laadige alla rakenduse allikas või distributsioonifailid (nt *.jar ja Angulari failid).
-Kopeerige need soovitud kausta (nt C:\myapp).
+Laadige alla rakenduse allikas, pakkige .zip fail lahti ning kopeerige failid soovitud kausta (nt C:\myapp).
 
 ### Käivitamine (Backend):
 
-Avage cmd või PowerShell.
 Navigeerige kausta, kuhu kopeerisite rakenduse failid:
 ```
 cd C:\myapp
@@ -34,11 +32,13 @@ Käivitage Spring Boot rakendus, kasutades järgmist käsku:
 cd backend
 cd .\gradlew bootRun
 ```
-Veenduge, et rakendus käivitub ilma vigadeta ja logis kuvatakse, et server kuulab pordil 8080.
+
+* Kui rakendus töötab, peab toimima ka järgnev päring:
+    * http://localhost:8080/api/event
+* Vastuse staatus antud päringule on 204 No Content.
 
 ### Käivitamine (Frontend):
 
-Avage cmd või PowerShell.
 Navigeerige kausta, kuhu kopeerisite rakenduse failid:
 ```
 cd C:\myapp
@@ -63,7 +63,6 @@ H2 andmebaas käivitatakse automaatselt koos Spring Boot rakendusega.
 ### Hetkel implementeerimata
 
 * JWT tokeni aegumine
-* Teade kui kindla isikukoodiga isik on juba üritusele registreerunud
 * Spetsiifilisem veahaldus
 * Täpsem isikukoodi ja e-posti aadressi valideerimine
 * Parem kuupäeva valimise metoodika

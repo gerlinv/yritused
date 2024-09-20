@@ -5,8 +5,7 @@ import { Event } from '../../models/event';
 
 @Component({
   selector: 'app-event-table',
-  templateUrl: './event-table.component.html',
-  styleUrl: './event-table.component.css'
+  templateUrl: './event-table.component.html'
 })
 export class EventTableComponent {
   events: Event[] = [];

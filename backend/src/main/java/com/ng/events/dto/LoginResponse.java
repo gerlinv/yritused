@@ -8,6 +8,7 @@ import lombok.Data;
 public class LoginResponse {
 
     private String token;
+    // Currenly unused
     private Long expiration;
-    
+
 }

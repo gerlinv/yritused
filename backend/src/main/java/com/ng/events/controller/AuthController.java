@@ -32,6 +32,7 @@ public class AuthController {
     @Value("${admin.password}")
     private String adminPassword;
 
+    // Currenly unused
     @Value("${jwt.expiration}")
     private Long jwtExpirationMs;
 

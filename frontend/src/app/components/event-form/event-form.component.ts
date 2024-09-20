@@ -7,8 +7,7 @@ import { ModalService } from '../../common/components/services/modal.service';
 
 @Component({
   selector: 'app-event-form',
-  templateUrl: './event-form.component.html',
-  styleUrl: './event-form.component.css'
+  templateUrl: './event-form.component.html'
 })
 export class EventFormComponent {
   eventForm = new FormGroup({
@@ -23,7 +22,8 @@ export class EventFormComponent {
     ]),
     maxParticipants: new FormControl(0, [
       Validators.required,
-      Validators.min(0),
+      Validators.minLength(1),
+      Validators.maxLength(15),
       Validators.pattern(/^[0-9]+$/)
     ])
   });
@@ -31,7 +31,7 @@ export class EventFormComponent {
     name: '',
     startTime: new Date(),
     endTime: new Date(),
-    maxParticipants: 0
+    maxParticipants: ''
   };
 
   constructor(private router: Router, private service: EventService, private modalService: ModalService) { }
@@ -51,7 +51,7 @@ export class EventFormComponent {
         name: this.event.name,
         startTime: this.event.startTime,
         endTime: this.event.endTime,
-        maxParticipants: this.event.maxParticipants,
+        maxParticipants: parseInt(this.event.maxParticipants),
         participants: []
       };
 

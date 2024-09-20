@@ -4,8 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { ModalService } from '../../common/components/services/modal.service';
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  templateUrl: './login.component.html'
 })
 export class LoginComponent {
   user = {
@@ -17,8 +16,6 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.user.email && this.user.password) {
-      console.log('email: ', this.user.email);
-      console.log('password: ', this.user.password);
       this.authService.login(this.user.email, this.user.password).subscribe(
         () => {
           this.router.navigate(['/']);

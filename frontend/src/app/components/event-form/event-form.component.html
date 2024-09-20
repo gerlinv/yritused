@@ -57,19 +57,18 @@
       <div class="form-group row mb-3">
         <label class="col-sm-3 col-form-label col-form-label-sm" for="maxParticipants">Maksimaalne osalajate arv</label>
         <div class="col-sm-9">
-          <input type="number" class="form-control" id="maxParticipants" placeholder="Maksimaalne osalajate arv"
+          <input type="text" class="form-control" id="maxParticipants" placeholder="Maksimaalne osalajate arv"
+            [maxLength]="15"
             [(ngModel)]="event.maxParticipants" formControlName="maxParticipants" [ngClass]="{
             'is-valid': eventForm.controls.maxParticipants.valid,
             'is-invalid': eventForm.controls.maxParticipants.invalid && (eventForm.controls.maxParticipants.touched || eventForm.controls.maxParticipants.dirty)
           }" />
-          <div *ngIf="eventForm.controls.maxParticipants.errors?.['min']" class="invalid-feedback">
-            Maksimaalne osalejate arv ei tohi olla negatiivne
-          </div>
           <div
             *ngIf="eventForm.controls.maxParticipants.invalid && (eventForm.controls.maxParticipants.touched || eventForm.controls.maxParticipants.dirty)"
             class="invalid-feedback">
             <div *ngIf="eventForm.controls.maxParticipants.errors?.['required']">Maksimaalne osalajate arv on
               kohustuslik</div>
+              <div *ngIf="eventForm.controls.maxParticipants.errors?.['pattern']">Väli tohib sisaldada ainult numbreid</div>
           </div>
         </div>
       </div>
