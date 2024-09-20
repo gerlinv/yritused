@@ -18,7 +18,6 @@ export class AuthService {
         tap((response) => {
           if (response && response.token) {
             localStorage.setItem('jwt_token', response.token);
-            // localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()));
           }
         })
       );
@@ -26,7 +25,6 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('jwt_token');
-    // localStorage.removeItem("expires_at");
   }
 
   isLoggedIn(): boolean {

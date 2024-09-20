@@ -34,11 +34,9 @@ export class EventRegisterComponent {
   };
 
   constructor(private route: ActivatedRoute, private router: Router, private service: EventService, private modalService: ModalService) {
-    console.log(this.router.getCurrentNavigation);
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras?.state?.['event']) {
       this.event = navigation.extras.state['event'];
-      console.log(this.event);
     } else {
       console.error('Event data is missing');
       this.modalService.showModal("Süsteemi viga", "Ürituse andmed puuduvad");
@@ -47,7 +45,19 @@ export class EventRegisterComponent {
 
   onSubmit() {
     if (this.event?.id && this.personForm.valid) {
-      const person = new Person(0, this.person.firstName, this.person.lastName, parseInt(this.person.identificationCode));
+
+      const currentIdCode = parseInt(this.person.identificationCode)
+
+      const exists = this.event.participants?.some((participant: Person) =>
+        participant.identificationCode === currentIdCode
+      );
+
+      if (exists) {
+        this.modalService.showModal("Ebaõnnestumine", "Antud isikukoodiga isik on juba registreeritud.");
+        return;
+      }
+
+      const person = new Person(0, this.person.firstName, this.person.lastName, currentIdCode);
       this.service.register(this.event.id, person)
         .subscribe(
           event => {
