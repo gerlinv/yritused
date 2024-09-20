@@ -20,7 +20,7 @@ export class EventFormComponent {
     endTime: new FormControl(new Date(), [
       Validators.required
     ]),
-    maxParticipants: new FormControl(0, [
+    maxParticipants: new FormControl('', [
       Validators.required,
       Validators.minLength(1),
       Validators.maxLength(15),
@@ -35,6 +35,11 @@ export class EventFormComponent {
   };
 
   constructor(private router: Router, private service: EventService, private modalService: ModalService) { }
+
+  formatDate(date: Date): string {
+    const pad = (num: number) => num.toString().padStart(2, '0');
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+  }
 
   onSubmit() {
     if (this.eventForm.valid) {

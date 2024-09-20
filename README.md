@@ -46,6 +46,7 @@ cd C:\myapp
 Käivitade Angulari rakendus, kasutades järgmist käsku:
 ```
 cd frontend
+npm install
 ng serve
 ```
 
@@ -66,3 +67,4 @@ H2 andmebaas käivitatakse automaatselt koos Spring Boot rakendusega.
 * Spetsiifilisem veahaldus
 * Täpsem isikukoodi ja e-posti aadressi valideerimine
 * Parem kuupäeva valimise metoodika
+    * Kuupäevaga seotud hoiatused konsoolis

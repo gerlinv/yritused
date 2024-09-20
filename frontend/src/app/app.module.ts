@@ -10,7 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
-import { ModalComponent } from './common/components/modal/modal.component';
+import { ModalComponent } from './common/components/components/modal/modal.component';
+import { SectionHeaderComponent } from './common/components/components/modal/section-header/section-header.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ModalComponent } from './common/components/modal/modal.component';
     EventTableComponent,
     LoginComponent,
     NavigationBarComponent,
-    ModalComponent
+    ModalComponent,
+    SectionHeaderComponent
   ],
   imports: [
     BrowserModule,

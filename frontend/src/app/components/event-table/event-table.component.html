@@ -1,7 +1,7 @@
 <app-navigation-bar></app-navigation-bar>
 
 <div class="container mt-5">
-    <h2>Available Events</h2>
+  <app-section-header title="Üritused"></app-section-header>
   
     <table class="table table-striped mt-3" *ngIf="events.length > 0; else noEvents">
       <thead>
@@ -27,7 +27,6 @@
       </tbody>
     </table>
   
-    <!-- Show when there are no events -->
     <ng-template #noEvents>
       <p>Hetkel pole ühtki üritust saadaval.</p>
     </ng-template>
