@@ -17,10 +17,6 @@ Rakenduse loomisel on kasutatud
 
 ## Sammud rakenduse paigaldamiseks
 
-### Failide kopeerimine:
-
-Laadige alla rakenduse allikas, pakkige .zip fail lahti ning kopeerige failid soovitud kausta (nt C:\myapp).
-
 ### Käivitamine (Backend):
 
 Navigeerige kausta, kuhu kopeerisite rakenduse failid:
