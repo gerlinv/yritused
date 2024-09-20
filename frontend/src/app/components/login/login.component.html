@@ -1,0 +1,31 @@
+<app-navigation-bar></app-navigation-bar>
+<app-modal></app-modal>
+
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="col-md-6 col-lg-5">
+    <h2>Logi sisse</h2>
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+
+      <div class="form-group row mb-3">
+        <label class="col-sm-3 col-form-label col-form-label-sm" for="email">E-posti aadress</label>
+        <div class="col-sm-9">
+          <input type="email" class="form-control" id="email" name="email" [(ngModel)]="user.email" required email />
+        </div>
+      </div>
+
+      <div class="form-group row mb-3">
+        <label class="col-sm-3 col-form-label col-form-label-sm" for="password">Parool</label>
+        <div class="col-sm-9">
+          <input type="password" class="form-control" id="password" name="password" [(ngModel)]="user.password"
+            required />
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <button class="btn btn-danger" (click)="goBack()">Tagasi</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid">Logi sisse</button>
+      </div>
+
+    </form>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<app-navigation-bar></app-navigation-bar>
+<app-modal></app-modal>
+
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="col-md-6 col-lg-4">
+
+    <div class="event-info mb-3">
+      <h2>Ürituse informatsioon</h2>
+      <p><strong>Nimi:</strong> {{ event?.name }}</p>
+      <p><strong>Algusaeg:</strong> {{ event?.startTime | date:'short' }}</p>
+      <p><strong>Lõppaeg:</strong> {{ event?.endTime | date:'short' }}</p>
+      <p><strong>Maksimaalne osalajate arv:</strong> {{ event?.maxParticipants }}</p>
+    </div>
+
+    <h2>Registreeri sündmusele</h2>
+    <form [formGroup]="personForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-group row mb-3">
+        <label class="col-sm-3 col-form-label col-form-label-sm" for="firstName">Eesnimi</label>
+        <div class="col-sm-9">
+          <input class="form-control" id="firstName" name="firstName" type="text" [maxlength]="255" required
+            [(ngModel)]="person.firstName" placeholder="Eesnimi" [formControl]="personForm.controls.firstName"
+            [ngClass]="{
+                  'is-valid': personForm.controls.firstName.valid,
+                  'is-invalid': personForm.controls.firstName.invalid && (personForm.controls.firstName.touched || personForm.controls.firstName.dirty)
+                  }">
+          <div
+            *ngIf="personForm.controls.firstName.invalid && (personForm.controls.firstName.touched || personForm.controls.firstName.dirty)"
+            class="invalid-feedback">
+            <div *ngIf="personForm.controls.firstName.errors?.['required']">Eesnimi on kohustuslik</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row mb-3">
+        <label class="col-sm-3 col-form-label col-form-label-sm" for="lastName">Perekonnanimi</label>
+        <div class="col-sm-9">
+          <input class="form-control" id="lastName" name="lastName" type="text" [maxlength]="255" required
+            [(ngModel)]="person.lastName" placeholder="Isikunimi" [formControl]="personForm.controls.lastName"
+            [ngClass]="{
+                  'is-valid': personForm.controls.lastName.valid,
+                  'is-invalid': personForm.controls.lastName.invalid && (personForm.controls.lastName.touched || personForm.controls.lastName.dirty)
+                  }">
+          <div
+            *ngIf="personForm.controls.lastName.invalid && (personForm.controls.lastName.touched || personForm.controls.lastName.dirty)"
+            class="invalid-feedback">
+            <div *ngIf="personForm.controls.lastName.errors?.['required']">Perekonnanimi on kohustuslik</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row mb-3">
+        <label class="col-sm-3 col-form-label col-form-label-sm" for="identificationCode">Isikukood</label>
+        <div class="col-sm-9">
+          <input class="form-control" id="identificationCode" name="identificationCode" type="text" [maxLength]="11"
+            required [(ngModel)]="person.identificationCode" placeholder="Isikukood"
+            [formControl]="personForm.controls.identificationCode" [ngClass]="{
+                  'is-valid': personForm.controls.identificationCode.valid,
+                  'is-invalid': personForm.controls.identificationCode.invalid && (personForm.controls.identificationCode.touched || personForm.controls.identificationCode.dirty)
+                  }">
+          <div
+            *ngIf="personForm.controls.identificationCode.invalid && (personForm.controls.identificationCode.touched || personForm.controls.identificationCode.dirty)"
+            class="invalid-feedback">
+            <div *ngIf="personForm.controls.identificationCode.errors?.['required']">Isikukood on kohustuslik</div>
+            <div
+              *ngIf="personForm.controls.identificationCode.errors?.['minlength'] || personForm.controls.identificationCode.errors?.['maxLength']">
+              Isikukood peab 11 tähemärki pikk
+            </div>
+            <div *ngIf="personForm.controls.identificationCode.errors?.['pattern']">Isikukood tohib sisaldada ainult
+              numbreid</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <button class="btn btn-danger" (click)="goBack()">Tagasi</button>
+        <button type="submit" class="btn btn-success" [disabled]="!personForm.valid">Registreeri</button>
+      </div>
+
+    </form>
+
+  </div>
+</div>

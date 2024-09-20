@@ -1,0 +1,84 @@
+<app-navigation-bar></app-navigation-bar>
+<app-modal></app-modal>
+
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="col-md-6 col-lg-8"> <!-- Adjust width here -->
+    <h2 class="text-center">Loo uus üritus</h2>
+    <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-group row mb-3">
+        <label class="col-sm-3 col-form-label col-form-label-sm" for="name">Ürituse nimi</label>
+        <div class="col-sm-9">
+          <input type="text" [maxlength]="255" class="form-control" id="eventName" placeholder="Ürituse nimi"
+            [(ngModel)]="event.name" formControlName="name" [ngClass]="{
+            'is-valid': eventForm.controls.name.valid,
+            'is-invalid': eventForm.controls.name.invalid && (eventForm.controls.name.touched || eventForm.controls.name.dirty)
+          }" />
+          <div
+            *ngIf="eventForm.controls.name.invalid && (eventForm.controls.name.touched || eventForm.controls.name.dirty)"
+            class="invalid-feedback">
+            <div *ngIf="eventForm.controls.name.errors?.['required']">Ürituse nimi on kohustuslik</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row mb-3">
+        <label class="col-sm-3 col-form-label col-form-label-sm" for="startTime">Ürituse algusaeg</label>
+        <div class="col-sm-9">
+          <input type="datetime-local" class="form-control" id="startTime" [(ngModel)]="event.startTime"
+            formControlName="startTime" [ngClass]="{
+            'is-valid': eventForm.controls.startTime.valid,
+            'is-invalid': eventForm.controls.startTime.invalid && (eventForm.controls.startTime.touched || eventForm.controls.startTime.dirty)
+          }" />
+          <div
+            *ngIf="eventForm.controls.startTime.invalid && (eventForm.controls.startTime.touched || eventForm.controls.startTime.dirty)"
+            class="invalid-feedback">
+            <div *ngIf="eventForm.controls.startTime.errors?.['required']">Ürituse algusaeg on kohustuslik</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row mb-3">
+        <label class="col-sm-3 col-form-label col-form-label-sm" for="lastName">Ürituse lõppaeg</label>
+        <div class="col-sm-9">
+          <input type="datetime-local" class="form-control" id="endTime" [(ngModel)]="event.endTime"
+            formControlName="endTime" [ngClass]="{
+            'is-valid': eventForm.controls.endTime.valid,
+            'is-invalid': eventForm.controls.endTime.invalid && (eventForm.controls.endTime.touched || eventForm.controls.endTime.dirty)
+          }" />
+          <div
+            *ngIf="eventForm.controls.endTime.invalid && (eventForm.controls.endTime.touched || eventForm.controls.endTime.dirty)"
+            class="invalid-feedback">
+            <div *ngIf="eventForm.controls.endTime.errors?.['required']">Ürituse lõppaeg on kohustuslik</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row mb-3">
+        <label class="col-sm-3 col-form-label col-form-label-sm" for="maxParticipants">Maksimaalne osalajate arv</label>
+        <div class="col-sm-9">
+          <input type="number" class="form-control" id="maxParticipants" placeholder="Maksimaalne osalajate arv"
+            [(ngModel)]="event.maxParticipants" formControlName="maxParticipants" [ngClass]="{
+            'is-valid': eventForm.controls.maxParticipants.valid,
+            'is-invalid': eventForm.controls.maxParticipants.invalid && (eventForm.controls.maxParticipants.touched || eventForm.controls.maxParticipants.dirty)
+          }" />
+          <div *ngIf="eventForm.controls.maxParticipants.errors?.['min']" class="invalid-feedback">
+            Maksimaalne osalejate arv ei tohi olla negatiivne
+          </div>
+          <div
+            *ngIf="eventForm.controls.maxParticipants.invalid && (eventForm.controls.maxParticipants.touched || eventForm.controls.maxParticipants.dirty)"
+            class="invalid-feedback">
+            <div *ngIf="eventForm.controls.maxParticipants.errors?.['required']">Maksimaalne osalajate arv on
+              kohustuslik</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <button type="button" class="btn btn-danger" (click)="goBack()">Tagasi</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!eventForm.valid">Loo üritus</button>
+      </div>
+
+    </form>
+  </div>
+</div>

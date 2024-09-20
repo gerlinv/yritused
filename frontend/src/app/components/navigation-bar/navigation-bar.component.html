@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/">Üritused</a>
+            </li>
+            <li class="nav-item" *ngIf="isAuthenticated()">
+                <a class="nav-link" routerLink="/form">Loo üritus</a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item" *ngIf="!isAuthenticated()">
+                <a class="nav-link" routerLink="/login">Logi sisse</a>
+            </li>
+            <li class="nav-item" *ngIf="isAuthenticated()">
+                <a class="nav-link" (click)="logout()">Logi välja</a>
+            </li>
+        </ul>
+
+    </div>
+</nav>

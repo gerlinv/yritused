@@ -1,0 +1,35 @@
+<app-navigation-bar></app-navigation-bar>
+
+<div class="container mt-5">
+    <h2>Available Events</h2>
+  
+    <table class="table table-striped mt-3" *ngIf="events.length > 0; else noEvents">
+      <thead>
+        <tr>
+          <th scope="col">Ürituse nimi</th>
+          <th scope="col">Kestus</th>
+          <th scope="col">Vabade kohtade arv</th>
+          <th scope="col">Registreeri</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let event of events">
+          <td>{{ event.name }}</td>
+          <td>{{ event.startTime | date: 'short' }} - {{ event.endTime | date: 'short' }}</td>
+          <td>{{ getAvailableSpots(event) }} / {{ event.maxParticipants }}</td>
+          <td>
+            <button 
+            class="btn btn-primary" 
+            (click)="register(event)"
+            [disabled]="getAvailableSpots(event) === 0">Registreeri</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Show when there are no events -->
+    <ng-template #noEvents>
+      <p>Hetkel pole ühtki üritust saadaval.</p>
+    </ng-template>
+  </div>
+  
