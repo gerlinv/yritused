@@ -42,6 +42,7 @@ public class EventsController {
 
     @PostMapping
     public ResponseEntity<?> createEvent(@Valid @RequestBody EventDto eventDto) {
+        // CHECK IF USER IS ADMIN!!
         Event res = eventService.createEvent(eventDto);
         return new ResponseEntity<>(res, HttpStatus.CREATED);
     }

@@ -1,8 +1,8 @@
 package com.ng.events.service;
 
+import com.ng.events.common.ValidationException;
 import com.ng.events.dto.EventDto;
 import com.ng.events.dto.RegisterDto;
-import com.ng.events.dto.ValidationException;
 import com.ng.events.model.Event;
 import com.ng.events.model.Person;
 import com.ng.events.repository.EventRepository;

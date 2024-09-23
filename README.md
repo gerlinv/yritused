@@ -59,6 +59,7 @@ H2 andmebaas käivitatakse automaatselt koos Spring Boot rakendusega.
 
 ### Hetkel implementeerimata
 
+* Backendis uue ürituse tegemisel õiguste kontroll (admin)
 * JWT tokeni aegumine
 * Spetsiifilisem veahaldus
 * Täpsem isikukoodi ja e-posti aadressi valideerimine
