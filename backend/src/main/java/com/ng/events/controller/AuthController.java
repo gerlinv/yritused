@@ -1,11 +1,6 @@
 package com.ng.events.controller;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.crypto.SecretKey;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ng.events.common.JwtUtil;
 import com.ng.events.dto.LoginRequest;
 import com.ng.events.dto.LoginResponse;
-
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -32,11 +24,10 @@ public class AuthController {
     @Value("${admin.password}")
     private String adminPassword;
 
-    // Currenly unused
-    @Value("${jwt.expiration}")
-    private Long jwtExpirationMs;
-
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+    @Autowired
+    private JwtUtil jwtUtil; 
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
@@ -48,24 +39,9 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
         }
         
-        String token = generateToken(adminEmail);
+        String token = jwtUtil.generateToken(adminEmail, "admin");
 
-        return ResponseEntity.ok(new LoginResponse(token, this.jwtExpirationMs));
-    }
-
-    private String generateToken(String email) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("email", email);
-
-        SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
-
-        return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(email)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
-                .signWith(key, SignatureAlgorithm.HS512)
-                .compact();
+        return ResponseEntity.ok(new LoginResponse(token, jwtUtil.getExpirationTime()));
     }
 
 }

@@ -30,4 +30,8 @@ export class AuthService {
   isLoggedIn(): boolean {
     return !!localStorage.getItem('jwt_token');
   }
+
+  getToken(): string | null {
+    return localStorage.getItem('jwt_token');
+  }
 }

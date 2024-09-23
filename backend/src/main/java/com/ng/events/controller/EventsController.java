@@ -10,15 +10,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ng.events.common.JwtUtil;
 import com.ng.events.dto.ErrorResponseDto;
 import com.ng.events.dto.EventDto;
 import com.ng.events.dto.RegisterDto;
 import com.ng.events.model.Event;
 import com.ng.events.service.EventService;
 
+import io.jsonwebtoken.Claims;
 import jakarta.validation.Valid;
 import jakarta.validation.ValidationException;
 
@@ -28,6 +31,9 @@ public class EventsController {
     
     @Autowired
     private EventService eventService;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<ErrorResponseDto> handleValidationException(ValidationException ex) {
@@ -41,8 +47,13 @@ public class EventsController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createEvent(@Valid @RequestBody EventDto eventDto) {
-        // CHECK IF USER IS ADMIN!!
+    public ResponseEntity<?> createEvent(@Valid @RequestBody EventDto eventDto, @RequestHeader("Authorization") String token) {
+        Claims claims = jwtUtil.extractClaims(token);
+
+        if (claims == null || !"admin".equals(claims.get("role"))) {
+            return new ResponseEntity<>("User not authorized to create events", HttpStatus.FORBIDDEN);
+        }
+
         Event res = eventService.createEvent(eventDto);
         return new ResponseEntity<>(res, HttpStatus.CREATED);
     }

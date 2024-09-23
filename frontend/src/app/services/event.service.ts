@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError, first, Observable, throwError } from 'rxjs';
 import { Event } from '../models/event';
 import { Person } from '../models/person';
 import { environment } from '../environment';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,13 @@ import { environment } from '../environment';
 export class EventService {
   private eventUrl = environment.eventApiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
+
+  private getAuthHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      'Authorization': `Bearer ${this.authService.getToken()}`,
+    });
+  }
 
   getAllEvents(): Observable<Event[]> {
     return this.http.get<Event[]>(this.eventUrl)
@@ -21,7 +28,7 @@ export class EventService {
   }
 
   createEvent(event: Event): Observable<Event> {
-    return this.http.post<Event>(this.eventUrl, event)
+    return this.http.post<Event>(this.eventUrl, event, { headers: this.getAuthHeaders() })
       .pipe(
         catchError(this.handleError)
       );
